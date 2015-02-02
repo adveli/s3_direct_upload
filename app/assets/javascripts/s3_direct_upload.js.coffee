@@ -38,8 +38,6 @@ $.fn.S3Uploader = (options) ->
     $uploadForm.fileupload
 
       add: (e, data) ->
-        return unless $uploadForm.is(e.originalEvent.target.form) or e.originalEvent.target.form is null
-
         file = data.files[0]
         file.unique_id = Math.random().toString(36).substr(2,16)
 
@@ -142,7 +140,7 @@ $.fn.S3Uploader = (options) ->
     if result # Use the S3 response to set the URL to avoid character encodings bugs
       content.url            = $(result).find("Location").text()
       content.key            = $(result).find("Key").text()
-    else # IE <= 9 retu      rn a null result object so we use the file object instead
+    else # IE <= 9 return a null result object so we use the file object instead
       domain                 = $uploadForm.attr('action')
       content.url            = domain + $uploadForm.find('input[name=key]').val().replace('/${filename}', '') + encodeURIComponent('/' + file.name)
       content.key            = $uploadForm.find('input[name=key]').val().replace('/${filename}', '') + '/' + file.name;
